@@ -1,0 +1,57 @@
+
+body {
+
+  font-family: 'Courier New', Courier, monospace;
+
+  margin: 0;
+
+  padding: 30px;
+
+}
+
+h1 {
+  text-align: center;
+}
+
+.WEEK {
+
+  max-width: fit-content;
+  margin: auto;
+  
+}
+
+.DAY {
+  margin-bottom: 30px;
+}
+
+.DAY h2 {
+  margin-bottom: 10px;
+
+}
+
+.task {
+
+  display: flex;
+  padding: 10px;
+  width: 500px;
+  margin: 0 auto;
+  border-bottom: 2px solid  #3f1152;
+
+}
+
+.task input[type="text"] {
+    height: 30px;
+    flex: 1;
+
+    border: none;
+    outline: none;
+
+    font-size: 18px;
+}
+
+.task input[type="checkbox"] {
+  height: 20px;
+  width: 20px;
+
+}
+
