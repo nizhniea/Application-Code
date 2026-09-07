@@ -2,8 +2,6 @@
 const taskAreas = document.querySelectorAll(".tasks");
 
 
-
-
 function createTask(taskArea) {
 
     const task = document.createElement("div");
