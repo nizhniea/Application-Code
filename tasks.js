@@ -28,8 +28,14 @@ function createTask(taskArea) {
 
     input.addEventListener("keydown", function(event){
         if (event.key === "Enter"){
-            createTask(taskArea);
+            const newInput = createTask(taskArea);
+            newInput.focus();
             console.log("Enter Pressed");
+
+        }
+
+        if (event.key === "Delete" && input.value === "" && taskArea.children.length > 1) {
+            task.remove();
 
         }
     });
@@ -38,6 +44,7 @@ function createTask(taskArea) {
     task.append(input);
 
     taskArea.append(task);
+    return input;
 }
 
 
