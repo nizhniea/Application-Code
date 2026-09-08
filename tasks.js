@@ -1,8 +1,12 @@
 
 const taskAreas = document.querySelectorAll(".tasks");
 
+const savedTasks = JSON.parse(localStorage.getItem("tasks")) || {};
+const tasks = {...savedTasks};
+console.log(savedTasks.monday);
 
-function createTask(taskArea) {
+function createTask(taskArea, taskText = "") {
+
 
     const task = document.createElement("div");
     task.classList.add("task");
@@ -15,6 +19,8 @@ function createTask(taskArea) {
         const task = checkBox.parentElement;
         const input = task.querySelector('input[type="text"]');
 
+
+
         if (checkBox.checked) {
             input.style.textDecoration = "line-through";
         } else {
@@ -25,6 +31,11 @@ function createTask(taskArea) {
 
     const input = document.createElement("input");
     input.type = "text";
+    input.value = taskText;
+    input.addEventListener("input", function() {
+    getTasks(taskArea);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    });
 
     input.addEventListener("keydown", function(event){
         if (event.key === "Enter"){
@@ -49,12 +60,39 @@ function createTask(taskArea) {
 
 
 taskAreas.forEach(function(taskArea){
-    createTask(taskArea);
+    const day = taskArea.dataset.day;
+    const savedDay = savedTasks[day];
+    
+    if (savedDay && savedDay.length > 0) {
+        savedDay.forEach(function(taskText){
+            createTask(taskArea, taskText);
+        });
+
+    } else {
+        createTask(taskArea);
+    };
 });
 
 
+function getTasks(taskArea) {
+    const day = taskArea.dataset.day;
+    const inputs = taskArea.querySelectorAll('input[type="text"]');
+    const taskList = [];
+
+    inputs.forEach(function(input) {
+        taskList.push(input.value);
+    });
+
+    tasks[day] = taskList;
+
+    return taskList;
 
 
+}
+
+
+
+console.log(getTasks(taskAreas[0]));
 
 
 
