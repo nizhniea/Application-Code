@@ -5,6 +5,10 @@ const savedTasks = JSON.parse(localStorage.getItem("tasks")) || {};
 const tasks = {...savedTasks};
 console.log(savedTasks.monday);
 
+const clearbutton = document.querySelector("#ClearTasks");
+
+
+
 function createTask(taskArea, taskText = "") {
 
 
@@ -97,3 +101,12 @@ console.log(getTasks(taskAreas[0]));
 
 
 
+clearbutton.addEventListener("click", () => {
+    console.log("cb clicked");
+    localStorage.clear("tasks");
+
+    taskAreas.forEach(function(taskArea){
+        taskArea.innerHTML = "";
+        createTask(taskArea);
+    });
+});

@@ -19,3 +19,6 @@
 ### Notes V2.5
 - Checkbox completion states are not currently saved.
 - Checkbox persistence will be added in a future version.
+
+### Added V2.7
+- Clear button now removes tasks stored on 'localstorage'.

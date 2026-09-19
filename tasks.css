@@ -54,3 +54,15 @@ h1 {
   width: 20px;
 
 }
+
+
+#ClearTasks{
+  position: absolute;
+
+  height: 20px;
+  width: 90px;
+
+  background-color: rgb(217, 177, 255);
+
+  cursor: pointer;
+}
