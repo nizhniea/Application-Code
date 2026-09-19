@@ -9,7 +9,7 @@ const clearbutton = document.querySelector("#ClearTasks");
 
 
 
-function createTask(taskArea, taskText = "") {
+function createTask(taskArea, taskData = { text: "", checked: false }) {
 
 
     const task = document.createElement("div");
@@ -17,7 +17,9 @@ function createTask(taskArea, taskText = "") {
 
     const checkBox = document.createElement("input");
     checkBox.type = "checkbox";
+    checkBox.checked = taskData.checked;
 
+    
     checkBox.addEventListener("change", function(){
         console.log("Checkbox changed");
         const task = checkBox.parentElement;
@@ -30,12 +32,20 @@ function createTask(taskArea, taskText = "") {
         } else {
             input.style.textDecoration = "none";
         }
+
+        getTasks(taskArea);
+        localStorage.setItem("tasks", JSON.stringify(tasks));
     });
 
 
     const input = document.createElement("input");
     input.type = "text";
-    input.value = taskText;
+    input.value = taskData.text;
+
+    if (checkBox.checked) {
+        input.style.textDecoration = "line-through";
+    }
+
     input.addEventListener("input", function() {
     getTasks(taskArea);
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -68,8 +78,8 @@ taskAreas.forEach(function(taskArea){
     const savedDay = savedTasks[day];
     
     if (savedDay && savedDay.length > 0) {
-        savedDay.forEach(function(taskText){
-            createTask(taskArea, taskText);
+        savedDay.forEach(function(taskData){
+            createTask(taskArea, taskData);
         });
 
     } else {
@@ -80,11 +90,19 @@ taskAreas.forEach(function(taskArea){
 
 function getTasks(taskArea) {
     const day = taskArea.dataset.day;
-    const inputs = taskArea.querySelectorAll('input[type="text"]');
+    const taskrows = taskArea.querySelectorAll(".task");
     const taskList = [];
 
-    inputs.forEach(function(input) {
-        taskList.push(input.value);
+    taskrows.forEach(function(task) {
+        const input = task.querySelector('input[type="text"]');
+        const checkBox = task.querySelector('input[type="checkbox"]');
+
+        const taskdata = {
+            text: input.value,
+            checked: checkBox.checked
+        };
+
+        taskList.push(taskdata);
     });
 
     tasks[day] = taskList;
